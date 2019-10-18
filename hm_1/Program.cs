@@ -229,16 +229,16 @@ namespace _1_hm
                             if (S[i] != ' ')
                                 n_symb_without_space++;
 
-                        Console.WriteLine("Количество слов: {0}", n_word);
-                        Console.WriteLine("Количество символов без пробелов: {0}", n_symb_without_space);
-                        Console.WriteLine("Соотношение количество символов без пробелов к количеству слов: {0}", 
-                            n_symb_without_space / (double)n_word);
+                        Console.WriteLine("Количество слов: {0};", n_word);
+                        Console.WriteLine("Количество символов без пробелов: {0};", n_symb_without_space);
+                        Console.WriteLine("Соотношение количество символов без пробелов к количеству слов: {0};",
+                            string.Format("{0:0.##}", n_symb_without_space / (double)n_word));
 
                         string S_t1 = "";
                         foreach (var i in S_t.Split(' '))
                             if (i != "")
                                 S_t1 += i[i.Length - 1];
-                        Console.WriteLine("Слово из последних символов слов: “{0}”", S_t1);
+                        Console.WriteLine("Слово из последних символов слов: “{0}”.", S_t1);
                         break;
                 }
 
