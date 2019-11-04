@@ -125,28 +125,28 @@ namespace hm_2
 
         public void showListOfOffers()
         {
-            Console.WriteLine($"\nСписок предложений: имя исполнителя - предлагаемая услуга - цена");
+            Console.WriteLine($"Список предложений\nid | Имя исполнителя | предлагаемая услуга | цена");
             for (int i = 0; i < listOfOffers.Count; i++)
             {
                 var t = listOfOffers[i];
-                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
+                Console.WriteLine($"{i}. {t[0]} | {t[1]} | {t[2]}");
             }
             Console.WriteLine();
         }
 
         public void showListOfRequests()
         {
-            Console.WriteLine($"\nСписок предложений: имя заказчика - требуемая услуга - цена");
+            Console.WriteLine($"Список предложений\nid | Имя заказчика | требуемая услуга | цена");
             for (int i = 0; i < listOfRequests.Count; i++)
             {
                 var t = listOfRequests[i];
-                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
+                Console.WriteLine($"{i}. {t[0]} | {t[1]} | {t[2]}");
             }
             Console.WriteLine();
         }
         public void showModeratorList()
         {
-            Console.WriteLine($"\n Список модераторов: имя");
+            Console.WriteLine($"Список модераторов\nИмя");
             for (int i = 0; i < moderatorList.Count; i++)
             {
                 var t = moderatorList[i];
@@ -158,22 +158,22 @@ namespace hm_2
         // req имя / что нужно / цена / сколько раз уже заказывал
         public void showWaitListOfRequests()
         {
-            Console.WriteLine($"\nid - Имя заказчика - требуемая услуга - цена");
+            Console.WriteLine($"Список, ожидающий рассмотрения\nid - Имя заказчика - требуемая услуга - цена");
             for (int i = 0; i < waitReqList.Count; i++)
             {
                 var t = waitReqList[i];
-                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
+                Console.WriteLine($"{i}. {t[0]} | {t[1]} | {t[2]}");
             }
             Console.WriteLine();
         }
         // off имя / что могу / цена / стаж
         public void showWaitListOfOffers()
         {
-            Console.WriteLine($"\nid - Имя заказчика - предлагаемая услуга - цена");
+            Console.WriteLine($"Список, ожидающий рассмотрения\nid - Имя заказчика - предлагаемая услуга - цена");
             for (int i = 0; i < waitOfferList.Count; i++)
             {
                 var t = waitOfferList[i];
-                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
+                Console.WriteLine($"{i}. {t[0]} | {t[1]} | {t[2]}");
             }
             Console.WriteLine();
         }

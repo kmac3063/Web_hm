@@ -113,18 +113,39 @@ namespace hm_2
             Admin admin = new Admin(Console.ReadLine());
             FreelanceExchange freelanceExchange = new FreelanceExchange(admin);
 
-            Client client = new Client("Снежана");
-            //client.tryAddRequest()
-
             People people = new People("Серёжа");
+
+            Client client = new Client("Снежана");
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Jeff", "Хочу сосисок", "100 тенге" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Loma", "Хочу сайт, где фон будет зеркальным, чтоб пользователь видел своё отражение", "3000 рублей" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Kalop", "Нужна игра, как ГТА5, только лучше и в каждое здание можно войти", "200 рублей в неделю" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Monarch100_200", "Нужно починить мангал", "5 юаней" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Чука", "Хочу того", "100p" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Гека", "Хочу сего", "200p" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Шука", "Хочу туда", "600p" });
+            client.tryAddRequest(ref freelanceExchange, new List<string> { "Мука", "Хочу сюда", "700p" });
+
             Worker worker = new Worker("Игорь");
+            worker.tryAddOffer(ref freelanceExchange, new List<string> { "Рома", "Могу принести сосисок", "10 единиц дерева и 2 единицы еды" });
+            worker.tryAddOffer(ref freelanceExchange, new List<string> { "Игорь", "Верстаю сайты", "5 рублей символ" });
+            worker.tryAddOffer(ref freelanceExchange, new List<string> { "Диня", "Взламываю странички вконтакте", "100 рублей предоплата" });
+            worker.tryAddOffer(ref freelanceExchange, new List<string> { "Поля", "Рисую пиксель арты", "Поесть, попить" });
+            worker.tryAddOffer(ref freelanceExchange, new List<string> { "Толя", "Настройка комьютера", "300$" });
 
             Moderator moderator = new Moderator("Миша");
+            Moderator moderator1 = new Moderator("Jija");
+            Moderator moderator2 = new Moderator("KOLOVRAT WOWCIRCLE 3.3.5");
+            admin.addModerator(ref freelanceExchange, moderator);
+            admin.addModerator(ref freelanceExchange, moderator1);
+            admin.addModerator(ref freelanceExchange, moderator2);
+            moderator.addOffer(ref freelanceExchange, 0);
+            moderator.addOffer(ref freelanceExchange, 0);
+            moderator.addRequest(ref freelanceExchange, 2);
+            moderator.addRequest(ref freelanceExchange, 2);
 
             var request = 0;
             while (request != REQ_EXIT)
             {
-
                 while (!read_request(ref request, "base")) { };
                 switch (request)
                 {
@@ -163,7 +184,15 @@ namespace hm_2
                                         break;
                                     case (7):
                                         Console.Write("Введите id одобряемого заявления: ");
-                                        admin.addOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            admin.addOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление одобрено!");
                                         break;
                                     case (8):
@@ -171,7 +200,15 @@ namespace hm_2
                                         break;
                                     case (9):
                                         Console.Write("Введите id одобряемого заявления: ");
-                                        admin.addRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            admin.addRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление одобрено!");
                                         break;
                                     case (10):
@@ -209,7 +246,15 @@ namespace hm_2
                                         break;
                                     case (5):
                                         Console.Write("Введите id одобряемого заявления: ");
-                                        moderator.addOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            moderator.addOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление одобрено!");
                                         break;
                                     case (6):
@@ -217,7 +262,15 @@ namespace hm_2
                                         break;
                                     case (7):
                                         Console.Write("Введите id одобряемого заявления: ");
-                                        moderator.addRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            moderator.addRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление одобрено!");
                                         break;
                                     case (8):
@@ -249,13 +302,22 @@ namespace hm_2
                                         Console.Write("Сколько вы готовы отдать за это?: ");
                                         t.Add(Console.ReadLine());
                                         client.tryAddRequest(ref freelanceExchange, t);
+                                        Console.WriteLine("Ваше заявление отправлено на рассмотрение!");
                                         break;
                                     case (2):
                                         freelanceExchange.showWaitListOfRequests();
                                         break;
                                     case (3):
                                         Console.Write("Введите id вашего заявления, которое хотите удалить: ");
-                                        client.delRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            client.delRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление удалено!");
                                         break;
                                     case (4):
@@ -263,7 +325,15 @@ namespace hm_2
                                         break;
                                     case (5):
                                         Console.Write("Введите id предложения, которое вы выбрали: ");
-                                        client.buyOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            client.buyOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Вы купили услугу!");
                                         break;
                                     case (6):
@@ -283,7 +353,7 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             while (request != REQ_GO_BACK)
                             {
-                                read_request(ref request, "worker");
+                                while (!read_request(ref request, "worker")) { };
                                 switch (request)
                                 {
                                     case (1):
@@ -295,13 +365,22 @@ namespace hm_2
                                         Console.Write("Сколько вы хотите получить за это?: ");
                                         t.Add(Console.ReadLine());
                                         worker.tryAddOffer(ref freelanceExchange, t);
+                                        Console.WriteLine("Ваше заявление отправлено на рассмотрение!");
                                         break;
                                     case (2):
                                         freelanceExchange.showWaitListOfOffers();
                                         break;
                                     case (3):
                                         Console.Write("Введите id вашего заявления, которое хотите удалить: ");
-                                        worker.delOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        try
+                                        {
+                                            worker.delOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
                                         Console.WriteLine("Заявление удалено!");
                                         break;
                                     case (4):
@@ -309,8 +388,16 @@ namespace hm_2
                                         break;
                                     case (5):
                                         Console.Write("Введите id предложения, которое вы выбрали: ");
-                                        worker.doRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
-                                        Console.WriteLine("Можете приступить к исполнению!");
+                                        try
+                                        { 
+                                            worker.doRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        }
+                                        catch
+                                        {
+                                            Console.WriteLine("Введены неверные данные!");
+                                            continue;
+                                        }
+                                        Console.WriteLine("Отлично! Можете приступить к исполнению!");
                                         break;
                                     case (6):
                                         Console.WriteLine($"Имя админа: {admin.getName()}");
