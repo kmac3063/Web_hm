@@ -156,7 +156,7 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             while (request != REQ_GO_BACK)
                             {
-                                read_request(ref request, "admin");
+                                while (!read_request(ref request, "admin")) { };
                                 switch (request)
                                 {
                                     case (1):
@@ -217,6 +217,9 @@ namespace hm_2
                                     case (11):
                                         request = REQ_GO_BACK;
                                         break;
+                                    default:
+                                        Console.WriteLine("Введены неверные данные!");
+                                        break;
                                 }
                             }
                             
@@ -229,7 +232,7 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             while (request != REQ_GO_BACK)
                             {
-                                read_request(ref request, "moderator");
+                                while (!read_request(ref request, "moderator")) { };
                                 switch (request)
                                 {
                                     case (1):
@@ -279,6 +282,9 @@ namespace hm_2
                                     case (9):
                                         request = REQ_GO_BACK;
                                         break;
+                                    default:
+                                        Console.WriteLine("Введены неверные данные!");
+                                        break;
                                 }
                             }
                             break;
@@ -290,7 +296,7 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             while (request != REQ_GO_BACK)
                             {
-                                read_request(ref request, "client");
+                                while (!read_request(ref request, "client")) { };
                                 switch (request)
                                 {
                                     case (1):
@@ -341,6 +347,9 @@ namespace hm_2
                                         break;
                                     case (7):
                                         request = REQ_GO_BACK;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Введены неверные данные!");
                                         break;
                                 }
                             }
@@ -405,6 +414,9 @@ namespace hm_2
                                     case (7):
                                         request = REQ_GO_BACK;
                                         break;
+                                    default:
+                                        Console.WriteLine("Введены неверные данные!");
+                                        break;
                                 }
                             }
                             
@@ -417,7 +429,7 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             while (request != REQ_GO_BACK)
                             {
-                                read_request(ref request, "look");
+                                while (!read_request(ref request, "look")) { };
                                 switch (request)
                                 {
                                     case (1):
@@ -450,6 +462,7 @@ namespace hm_2
                         Console.WriteLine("Введены неверные данные!");
                         break;
                 }
+                Console.Write("-------------------------------------------");
             }
         }
     }
