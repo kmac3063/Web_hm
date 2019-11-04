@@ -12,14 +12,10 @@ namespace hm_2
         const int REQ_Worker = 4;
         const int REQ_LOOKER = 5;
         const int REQ_EXIT = 6;
-
-        const int REQ_MANAGE_Moderator = 7;
-        const int REQ_MANAGE_REQ_AND_OF = 8;
         const int REQ_GO_BACK = 9;
-        //const int REQ_EXIT = 6;
-        //const int REQ_EXIT = 6;
+        const int REQ_BAD = 10;
 
-        static void read_request(ref int request, string status)
+        static bool read_request(ref int request, string status)
         {
             switch (status)
             {
@@ -96,37 +92,40 @@ namespace hm_2
 
                     Console.Write("\nВведите номер: ");
                     break;
+                    
             }
-            
-            request = Int32.Parse(Console.ReadLine());
+            try
+            {
+                request = Int32.Parse(Console.ReadLine());
+            }
+            catch
+            { 
+                Console.WriteLine("Введены неверные данные!");
+                return false;
+            }
             Console.WriteLine("\n");
+            return true;
         }
 
-        void read_Admin_request() //TO DO
-        {
-            
-
-            //request = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("\n");
-        }
         static void Main(string[] args)
         {
             Console.Write("Введите имя админа: ");
             Admin admin = new Admin(Console.ReadLine());
+            FreelanceExchange freelanceExchange = new FreelanceExchange(admin);
 
-            Moderator moderator = new Moderator("Миша");
+            Client client = new Client("Снежана");
+            //client.tryAddRequest()
 
             People people = new People("Серёжа");
-            Client client = new Client("Снежана");
             Worker worker = new Worker("Игорь");
 
-            FreelanceExchange freelanceExchange = new FreelanceExchange(admin);
+            Moderator moderator = new Moderator("Миша");
 
             var request = 0;
             while (request != REQ_EXIT)
             {
 
-                read_request(ref request, "base");
+                while (!read_request(ref request, "base")) { };
                 switch (request)
                 {
                     case REQ_Admin:
@@ -291,27 +290,27 @@ namespace hm_2
                                         var t = new List<string>();
                                         Console.Write("От какого имени заявление?: ");
                                         t.Add(Console.ReadLine());
-                                        Console.Write("Введите вашу просьбу, с которой вы обратились: ");
+                                        Console.Write("Введите услугу, которую вы предлагаете: ");
                                         t.Add(Console.ReadLine());
-                                        Console.Write("Сколько вы готовы отдать за это?: ");
+                                        Console.Write("Сколько вы хотите получить за это?: ");
                                         t.Add(Console.ReadLine());
-                                        client.tryAddRequest(ref freelanceExchange, t);
+                                        worker.tryAddOffer(ref freelanceExchange, t);
                                         break;
                                     case (2):
-                                        freelanceExchange.showWaitListOfRequests();
+                                        freelanceExchange.showWaitListOfOffers();
                                         break;
                                     case (3):
                                         Console.Write("Введите id вашего заявления, которое хотите удалить: ");
-                                        client.delRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        worker.delOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
                                         Console.WriteLine("Заявление удалено!");
                                         break;
                                     case (4):
-                                        freelanceExchange.showListOfOffers();
+                                        freelanceExchange.showListOfRequests();
                                         break;
                                     case (5):
                                         Console.Write("Введите id предложения, которое вы выбрали: ");
-                                        client.buyOffer(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
-                                        Console.WriteLine("Вы купили услугу!");
+                                        worker.doRequest(ref freelanceExchange, Int32.Parse(Console.ReadLine()));
+                                        Console.WriteLine("Можете приступить к исполнению!");
                                         break;
                                     case (6):
                                         Console.WriteLine($"Имя админа: {admin.getName()}");
@@ -329,11 +328,28 @@ namespace hm_2
                             Console.WriteLine("------------------------------");
                             Console.WriteLine("ВЫ ЗАШЛИ ПРОСТО ПОЛЮБОВАТЬСЯ");
                             Console.WriteLine("------------------------------\n");
-                            //Посмотреть список исполнителей
-                            //Посмотреть список предлагаемых работ
-                            //Посмотреть свой баланс
-                            //Просмотреть категории
-                            //Зайти в категорию
+                            while (request != REQ_GO_BACK)
+                            {
+                                read_request(ref request, "look");
+                                switch (request)
+                                {
+                                    case (1):
+                                        freelanceExchange.showListOfOffers();
+                                        break;
+                                    case (2):
+                                        freelanceExchange.showListOfRequests();
+                                        break;
+                                    case (3):
+                                        Console.WriteLine($"Имя админа: {admin.getName()}");
+                                        break;
+                                    case (4):
+                                        request = REQ_GO_BACK;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Введены неверные данные!");
+                                        break;
+                                }
+                            }
                             break;
                         }
                     case REQ_EXIT:
@@ -343,6 +359,9 @@ namespace hm_2
                             Console.WriteLine("------------------------------\n");
                             continue;
                         }
+                    default:
+                        Console.WriteLine("Введены неверные данные!");
+                        break;
                 }
             }
         }

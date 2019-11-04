@@ -76,10 +76,7 @@ namespace hm_2
 
         public void delRequest(ref FreelanceExchange FE, int id)
         {
-            if (FE.waitReqList.Contains(req))
-                FE.waitReqList.Remove(req);
-            if (FE.listOfRequests.Contains(req))
-                FE.listOfRequests.Remove(req);
+           FE.waitReqList.Remove(FE.waitReqList[id]);
         }
         
         public void buyOffer(ref FreelanceExchange FE, int id) {
@@ -97,12 +94,9 @@ namespace hm_2
             FE.waitOfferList.Add(off);
         }
 
-        public void delOffer(ref FreelanceExchange FE, List<string> off)
+        public void delOffer(ref FreelanceExchange FE, int id)
         {
-            if (FE.waitOfferList.Contains(off))
-                FE.waitOfferList.Remove(off);
-            if (FE.listOfOffers.Contains(off))
-                FE.listOfOffers.Remove(off);
+            FE.waitOfferList.Remove(FE.waitOfferList[id]);
         }
         // req имя / что нужно / цена / сколько раз уже заказывал
         // off имя / что могу / цена / стаж
@@ -110,9 +104,6 @@ namespace hm_2
         {
             FE.listOfRequests.Remove(FE.listOfRequests[id]);
         }
-        //tryAddOffer
-        //pleaseDelOffer
-        //workReq
     }
     public class FreelanceExchange
     {
@@ -179,9 +170,9 @@ namespace hm_2
         public void showWaitListOfOffers()
         {
             Console.WriteLine($"\nid - Имя заказчика - предлагаемая услуга - цена");
-            for (int i = 0; i < waitReqList.Count; i++)
+            for (int i = 0; i < waitOfferList.Count; i++)
             {
-                var t = waitReqList[i];
+                var t = waitOfferList[i];
                 Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
             }
             Console.WriteLine();
