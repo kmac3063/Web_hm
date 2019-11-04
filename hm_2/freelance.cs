@@ -30,10 +30,9 @@ namespace hm_2
                 FE.moderatorList.Add(mod);
         }
 
-        public void delModerator(ref FreelanceExchange FE, Moderator mod)
+        public void delModerator(ref FreelanceExchange FE, int id)
         {
-            if (FE.moderatorList.Contains(mod))
-                FE.moderatorList.Remove(mod);
+            FE.moderatorList.Remove(FE.moderatorList[id]);
         }
     }
 
@@ -75,15 +74,14 @@ namespace hm_2
             FE.waitReqList.Add(req);
         }
 
-        public void delRequest(ref FreelanceExchange FE, List<string> req)
+        public void delRequest(ref FreelanceExchange FE, int id)
         {
             if (FE.waitReqList.Contains(req))
                 FE.waitReqList.Remove(req);
             if (FE.listOfRequests.Contains(req))
                 FE.listOfRequests.Remove(req);
         }
-        // req имя / что нужно / цена / сколько раз уже заказывал
-        // off имя / что могу / цена / стаж
+        
         public void buyOffer(ref FreelanceExchange FE, int id) {
             FE.listOfOffers.Remove(FE.listOfOffers[id]);
         }
@@ -121,14 +119,12 @@ namespace hm_2
         public Admin admin;
         public List<Moderator> moderatorList = new List<Moderator>();
 
-        //public List<Worker> listOfWorkers = new List<Worker>();
         public List<List<string>> listOfOffers = new List<List<string>>();
         public List<List<string>> listOfRequests = new List<List<string>>();
 
         public List<List<string>> waitOfferList = new List<List<string>>();
         public List<List<string>> waitReqList = new List<List<string>>();
-        //public List<Client> listOfClients = new List<Client>();
-
+        
 
         public FreelanceExchange(Admin admin_)
         {
@@ -146,16 +142,6 @@ namespace hm_2
             }
             Console.WriteLine();
         }
-        /*void showListOfWorkers()
-        {
-            Console.WriteLine($"\nСписок исполнителей: имя - стаж - количество выполненых работ");
-            for (int i = 0; i < listOfWorkers_.Length; i++)
-            {
-                Worker t = listOfWorkers_[i];
-                Console.WriteLine($"{i}. {t.name} - {t.experience} - {t.score}");
-            }
-            Console.WriteLine();
-        }*/
 
         public void showListOfRequests()
         {
@@ -167,16 +153,6 @@ namespace hm_2
             }
             Console.WriteLine();
         }
-        /*void showListOfClient()
-        {
-            Console.WriteLine($"\nСписок заказчиков: имя - опубликовано заявок");
-            for (int i = 0; i < listOfClients_.Length; i++)
-            {
-                Client t = listOfClients_[i];
-                Console.WriteLine($"{i}. {t.name} - {t.numberOfRequests}");
-            }
-            Console.WriteLine();
-        }*/
         public void showModeratorList()
         {
             Console.WriteLine($"\n Список модераторов: имя");
@@ -184,6 +160,29 @@ namespace hm_2
             {
                 var t = moderatorList[i];
                 Console.WriteLine($"{i}. {t.getName()}");
+            }
+            Console.WriteLine();
+        }
+
+        // req имя / что нужно / цена / сколько раз уже заказывал
+        public void showWaitListOfRequests()
+        {
+            Console.WriteLine($"\nid - Имя заказчика - требуемая услуга - цена");
+            for (int i = 0; i < waitReqList.Count; i++)
+            {
+                var t = waitReqList[i];
+                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
+            }
+            Console.WriteLine();
+        }
+        // off имя / что могу / цена / стаж
+        public void showWaitListOfOffers()
+        {
+            Console.WriteLine($"\nid - Имя заказчика - предлагаемая услуга - цена");
+            for (int i = 0; i < waitReqList.Count; i++)
+            {
+                var t = waitReqList[i];
+                Console.WriteLine($"{i}. {t[0]} - {t[1]} - {t[2]}");
             }
             Console.WriteLine();
         }
