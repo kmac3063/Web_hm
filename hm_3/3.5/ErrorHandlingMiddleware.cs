@@ -11,9 +11,13 @@ public class ErrorHandlingMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         await next.Invoke(context);
-        if (context.Response.StatusCode == 403)
+        if (context.Response.StatusCode == 402)
         {
-            await context.Response.WriteAsync(" < 10 !");
+            await context.Response.WriteAsync(" < 10!");
+        }
+        else if (context.Response.StatusCode == 403)
+        {
+            await context.Response.WriteAsync("Error!");
         }
     }
 }
