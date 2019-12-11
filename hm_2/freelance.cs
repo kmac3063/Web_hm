@@ -16,9 +16,6 @@ namespace hm_2
         public string getName() { return name; }
         
         Admin getАdmin(FreelanceExchange FE) { return FE.admin; }
-        //public List<Worker> getListOfWorkers(FreelanceExchange FE) { return FE.listOfWorkers; }
-        //public List<Client> getListOfClient(FreelanceExchange FE) { return FE.listOfClients; }
-
     }
     public class Admin : Moderator
     {
