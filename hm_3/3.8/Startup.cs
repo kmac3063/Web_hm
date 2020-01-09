@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using _3._8.Models;
 
-namespace _3._8
+namespace hm_4
 {
     public class Startup
     {
