@@ -1,0 +1,30 @@
+﻿@model IEnumerable<hm_4.Models.Moderator>
+@{
+    ViewData["Title"] = "Модераторы";
+}
+<h3>Модераторы: </h3>
+<form asp-controller="ModeratorsMenu" asp-action="Moderators">
+    <p>
+        <input type="text" name="SearchStr">
+        <input type="submit" value="Поиск" />
+    </p>
+</form>
+<p>
+    <a asp-action="AddMod">Добавить</a>
+</p>
+<table class="table-condensed" cellpadding="8">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+    </tr>
+    @foreach (var moder in Model)
+    {
+        <tr>
+            <td>@moder.FirstName</td>
+            <td>@moder.SecondName</td>
+            <td><a href="~/ModeratorsMenu/InfoMod/@moder.ModeratorId">Инфо</a></td>
+            <td><a href="~/ModeratorsMenu/Edit/@moder.ModeratorId">Изменить</a></td>
+            <td><a href="~/ModeratorsMenu/Delete/@moder.ModeratorId">Удалить</a></td>
+        </tr>
+    }
+</table>

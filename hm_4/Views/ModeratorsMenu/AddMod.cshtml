@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Модераторы";
+}
+<h3>Добавление модератора</h3>
+
+<form method="post" class="form-horizontal" role="form">
+    <p>Для добавления заполните следующие поля:</p>
+    <div class="form-group">
+        <label for="User" class="col-md-2 control-label">Имя:</label>
+        <div class="col-md-4">
+            <input type="text" name="FirstName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Address" class="col-md-2 control-label">Фамилия:</label>
+        <div class="col-md-4">
+            <input type="text" name="SecondName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Возраст:</label>
+        <div class="col-md-4">
+            <input type="text" name="Age" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Опыт работы:</label>
+        <div class="col-md-4">
+            <input type="text" name="Experience" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Добавить" />
+        </div>
+    </div>
+</form>

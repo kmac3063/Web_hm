@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Модераторы";
+}
+@model hm_4.Models.Moderator
+<h2>Модератор @Model.FirstName @Model.SecondName</h2>
+<form method="post">
+    <fieldset>
+        @Html.HiddenFor(m => m.ModeratorId)
+        <p>
+            @Html.LabelFor(m => m.FirstName, "Имя")
+            @Html.EditorFor(m => m.FirstName)
+
+            @Html.LabelFor(m => m.SecondName, "Фамилия")
+            @Html.EditorFor(m => m.SecondName)
+            <br/>
+            @Html.LabelFor(m => m.Age, "Возраст")
+            @Html.EditorFor(m => m.Age)
+
+            @Html.LabelFor(m => m.Experience, "Опыт работы")
+            @Html.EditorFor(m => m.Experience)
+        </p>
+        <p><input type="submit" value="Изменить" /></p>
+    </fieldset>
+</form>

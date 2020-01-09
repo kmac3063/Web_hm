@@ -1,0 +1,19 @@
+﻿@model hm_4.Models.Admin
+@{
+    ViewData["Title"] = "Админы";
+}
+<h3>Админ @Model.FirstName @Model.SecondName </h3>
+<table class="table-condensed" cellpadding="8">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Возраст</td>
+        <td>Город проживания</td>
+    </tr>
+    <tr>
+        <td>@Model.FirstName</td>
+        <td>@Model.SecondName</td>
+        <td>@Model.Age</td>
+        <td>@Model.City</td>
+    </tr>
+</table>

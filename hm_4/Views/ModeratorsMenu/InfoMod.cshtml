@@ -1,0 +1,19 @@
+﻿@model hm_4.Models.Moderator
+@{
+    ViewData["Title"] = "Модераторы";
+}
+<h3>Модератор @Model.FirstName @Model.SecondName </h3>
+<table class="table-condensed" cellpadding="8">
+    <tr>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Возраст</td>
+        <td>Опыт работы</td>
+    </tr>
+    <tr>
+        <td>@Model.FirstName</td>
+        <td>@Model.SecondName</td>
+        <td>@Model.Age</td>
+        <td>@Model.Experience</td>
+    </tr>
+</table>

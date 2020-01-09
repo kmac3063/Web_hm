@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Админы";
+}
+@model hm_4.Models.Admin
+<h2>Админ @Model.FirstName @Model.SecondName</h2>
+<form method="post">
+    <fieldset>
+        @Html.HiddenFor(m => m.AdminId)
+        <p>
+            @Html.LabelFor(m => m.FirstName, "Имя")
+            @Html.EditorFor(m => m.FirstName)
+
+            @Html.LabelFor(m => m.SecondName, "Фамилия")
+            @Html.EditorFor(m => m.SecondName)
+            <br/>
+            @Html.LabelFor(m => m.Age, "Возраст")
+            @Html.EditorFor(m => m.Age)
+
+            @Html.LabelFor(m => m.City, "Город проживания")
+            @Html.EditorFor(m => m.City)
+        </p>
+        <p><input type="submit" value="Изменить" /></p>
+    </fieldset>
+</form>
