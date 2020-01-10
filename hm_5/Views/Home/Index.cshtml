@@ -1,0 +1,43 @@
+﻿@using hm_5.ViewModels
+@using hm_5.Models
+@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form class="form-inline">
+    <label>Выберите жанр:</label>
+    <select name="categoryId" class="form-control">
+        @foreach (CategoryModel cat in Model.Categories)
+        {
+            <option value="@cat.Id">@cat.Name</option>
+        }
+    </select>
+    <input type="submit"/>
+</form>
+<p>
+    <a asp-action="Add">Добавить игру</a>
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>Название</th>
+        <th>Жанр</th>
+        <th>Дата выхода</th>
+        <th>Дни</th>
+        <th>Часы</th>
+        <th>Минуты</th>
+        <th>Секунды</th>
+    </tr>
+    @foreach (Game g in Model.Games)
+    {
+        <tr>
+            <td>@g.Name</td>
+            <td>@g.Category?.Name</td>
+            <td>@g.Release</td>
+            <td>@g.Lifetime.Days</td>
+            <td>@g.Lifetime.Hours</td>
+            <td>@g.Lifetime.Minutes</td>
+            <td>@g.Lifetime.Seconds</td>
+        </tr>
+    }
+</table>
