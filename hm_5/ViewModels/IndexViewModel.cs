@@ -8,7 +8,9 @@ namespace hm_5.ViewModels
 {
     public class IndexViewModel
     {
-        public IEnumerable<CategoryModel> Categories { get; set; }
         public IEnumerable<Game> Games { get; set; }
+        public PageViewModel PageViewModel { get; set; }
+        public FilterViewModel FilterViewModel { get; set; }
+        public SortViewModel SortViewModel { get; set; }
     }
 }

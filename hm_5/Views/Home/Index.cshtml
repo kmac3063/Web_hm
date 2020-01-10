@@ -4,29 +4,40 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<form class="form-inline">
-    <label>Выберите жанр:</label>
-    <select name="categoryId" class="form-control">
-        @foreach (CategoryModel cat in Model.Categories)
-        {
-            <option value="@cat.Id">@cat.Name</option>
-        }
-    </select>
-    <input type="submit"/>
+
+<form method="get">
+    <div class="form-inline">
+        @Html.Label("text", "Название:")
+        <input name="Name" value="@Model.FilterViewModel.SelectedName" class="form-control" />
+
+        @Html.Label("text", "Жанр:")
+        <select name="categoryId" asp-items="Model.FilterViewModel.Categories" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-outline-success" />
+    </div>
 </form>
+
 <p>
     <a asp-action="Add">Добавить игру</a>
 </p>
+
 <br />
 <table class="table">
     <tr>
-        <th>Название</th>
-        <th>Жанр</th>
-        <th>Дата выхода</th>
-        <th>Дни</th>
-        <th>Часы</th>
-        <th>Минуты</th>
-        <th>Секунды</th>
+        <th><a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedCategory)">Название</a></th>
+        <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.CatSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedCategory)">Жанр</a></th>
+        <th><a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.RelSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedCategory)">Дата выхода</a></th>
+        <th><a>Дни</a></th>
+        <th><a>Часы</a></th>
+        <th><a>Минуты</a></th>
+        <th><a>Секунды</a></th>
     </tr>
     @foreach (Game g in Model.Games)
     {
@@ -41,3 +52,28 @@
         </tr>
     }
 </table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-danger"
+       id="1">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

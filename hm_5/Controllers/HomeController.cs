@@ -13,6 +13,8 @@ namespace hm_5.Controllers
 {
     public class HomeController : Controller
     {
+        const int NUMB_PAGES = 6;
+
         GameContext db;
         public HomeController(GameContext context)
         {
@@ -41,21 +43,61 @@ namespace hm_5.Controllers
             }
         }
 
-        public IActionResult Index(int? categoryId)
+        public async Task<IActionResult> Index(int? categoryId, string? name, int page = 1,
+            SortState sortOrder = SortState.NameAsc)
         {
-            List<CategoryModel> catModels = db.Categories.Select(
-                 c => new CategoryModel { Id = c.Id, Name = c.Name }).ToList();
 
             IQueryable<Game> games = db.Games.Include(x => x.Category);
-
-            catModels.Insert(0, new CategoryModel { Id = 0, Name = "Any" });
- 
-            IndexViewModel indexVM = new IndexViewModel { Categories = catModels, Games = games };
+            
 
             if (categoryId != null && categoryId > 0)
             {
-                indexVM.Games = games.Where(c => c.Category.Id == categoryId);
+                games = games.Where(
+                    g => g.Category.Id == categoryId);
             }
+            
+            if (!String.IsNullOrEmpty(name))
+            {
+                name = name.ToLower();
+                games = games.Where(
+                    g => g.Name.ToLower().Contains(name)
+                );
+            }
+
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    games = games.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.RelAsc:
+                    games = games.OrderBy(s => s.Release);
+                    break;
+                case SortState.RelDesc:
+                    games = games.OrderByDescending(s => s.Release);
+                    break;
+                case SortState.CatAsc:
+                    games = games.OrderBy(s => s.Category.Name);
+                    break;
+                case SortState.CatDesc:
+                    games = games.OrderByDescending(s => s.Category.Name);
+                    break;
+                default:
+                    games = games.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // пагинация
+            var count = await games.CountAsync();
+            var items = await games.Skip((page - 1) * NUMB_PAGES).Take(NUMB_PAGES).ToListAsync();
+
+
+            IndexViewModel indexVM = new IndexViewModel {
+                PageViewModel = new PageViewModel(count, page, NUMB_PAGES),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(db.Categories.ToList(), categoryId, name),
+                Games = items
+            };
+
 
             return View(indexVM);
         }
