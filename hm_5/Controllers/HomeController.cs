@@ -124,6 +124,8 @@ namespace hm_5.Controllers
                 }
             }
 
+            //var x = db.Categories.FirstOrDefault(x => x.Name == game.Category.Name);
+
             if (!t)
                 db.Categories.Add(game.Category);
             

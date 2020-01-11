@@ -9,7 +9,6 @@ namespace hm_5.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         public int Release { get; set; }
 
         public DateTime CreationDate { get; set; }

@@ -8,21 +8,27 @@
 <form method="get">
     <div class="form-inline">
         @Html.Label("text", "Название:")
-        <input name="Name" value="@Model.FilterViewModel.SelectedName" class="form-control" />
-
+        <div>
+            <input name="Name" value="@Model.FilterViewModel.SelectedName" class="form-control" />
+        </div>
+        
         @Html.Label("text", "Жанр:")
-        <select name="categoryId" asp-items="Model.FilterViewModel.Categories" class="form-control"></select>
-
-        <input type="submit" value="Фильтр" class="btn btn-outline-success" />
+        <div style="margin-right: 40px">
+            <select name="categoryId" asp-items="Model.FilterViewModel.Categories" class="form-control"></select>
+        </div>
+        
+        <div>
+            <input type="submit" value="Фильтр" class="btn btn-outline-success" />
+        </div>
     </div>
 </form>
 
 <p>
-    <a asp-action="Add">Добавить игру</a>
+    <a asp-action="Add" class="btn btn-dark" style="margin-top: 40px">Добавить игру</a>
 </p>
 
 <br />
-<table class="table">
+<table class="table table-warning">
     <tr>
         <th><a asp-action="Index"
                asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
@@ -39,6 +45,7 @@
         <th><a>Минуты</a></th>
         <th><a>Секунды</a></th>
     </tr>
+
     @foreach (Game g in Model.Games)
     {
         <tr>
@@ -59,21 +66,22 @@
        asp-route-name="@(Model.FilterViewModel.SelectedName)"
        asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
        asp-route-sortorder="@(Model.SortViewModel.Current)"
-       class="btn  btn-outline-dark">
+       class="btn  btn-outline-info">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
     </a>
 }
 @if (Model.PageViewModel.HasNextPage)
 {
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-name="@(Model.FilterViewModel.SelectedName)"
-       asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
-       asp-route-sortorder="@(Model.SortViewModel.Current)"
-       class="btn btn-outline-danger"
-       id="1">
-        Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
-    </a>
+    <div align = "right">
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           asp-route-name="@(Model.FilterViewModel.SelectedName)"
+           asp-route-category="@(Model.FilterViewModel.SelectedCategory)"
+           asp-route-sortorder="@(Model.SortViewModel.Current)"
+           class="btn btn-outline-danger">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    </div>
 }
